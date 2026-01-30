@@ -1,0 +1,54 @@
+{
+  "name": "Zain",
+  "colors": {
+    "primary": "#6E2C91",
+    "secondary": "#E6007E",
+    "accent": "#00A9CE",
+    "dark": "#1A1A1A",
+    "light": "#FFFFFF",
+    "gradients": {
+      "ultraviolet": ["#6E2C91", "#9B59B6"],
+      "limelagoon": ["#00A9CE", "#7ED321"],
+      "midnightsky": ["#1A1A1A", "#4A4A4A"],
+      "coraldawn": ["#E6007E", "#F5A623"],
+      "twilightmist": ["#6E2C91", "#00A9CE"],
+      "azurewaters": ["#00A9CE", "#4A90E2"],
+      "magentafade": ["#E6007E", "#BD10E0"],
+      "jadehorizon": ["#00A9CE", "#50E3C2"]
+    }
+  },
+  "fonts": {
+    "primary": "Zain-Regular",
+    "bold": "Zain-Bold",
+    "light": "Zain-Light",
+    "black": "Zain-Black",
+    "italic": "Zain-Italic"
+  },
+  "logos": {
+    "english_black": "brand-assets/logos/english_logos/ZN_LGO_PRM_ENG_BLACK_RGB.png",
+    "english_white": "brand-assets/logos/english_logos/ZN_LGO_PRM_ENG_WHITE_RGB.png",
+    "arabic_black": "brand-assets/logos/arabic_logos/ZN_LGO_PRM_ARB_BLACK_RGB.png",
+    "arabic_white": "brand-assets/logos/arabic_logos/ZN_LGO_PRM_ARB_WHITE_RGB.png"
+  },
+  "slide_layouts": {
+    "title": {
+      "bg_gradient": "ultraviolet",
+      "logo": "english_white",
+      "logo_position": "top_right",
+      "title_size": 44,
+      "subtitle_size": 24
+    },
+    "content": {
+      "bg_color": "#FFFFFF",
+      "logo": "english_black",
+      "logo_position": "bottom_right",
+      "title_size": 32,
+      "body_size": 18
+    },
+    "section": {
+      "bg_gradient": "coraldawn",
+      "logo": "english_white",
+      "title_size": 40
+    }
+  }
+}
