@@ -32,6 +32,8 @@ def generate():
     try:
         # Get outline from form or file
         outline_text = request.form.get('outline', '')
+        title_gradient = request.form.get('title_gradient', 'ultraviolet')
+        section_gradient = request.form.get('section_gradient', 'coraldawn')
         
         if 'outline_file' in request.files:
             file = request.files['outline_file']
@@ -48,6 +50,13 @@ def generate():
         
         if not slides_data:
             return jsonify({'error': 'Could not parse outline'}), 400
+        
+        # Apply gradient selections to slides
+        for slide in slides_data:
+            if slide['type'] == 'title':
+                slide['gradient'] = title_gradient
+            elif slide['type'] == 'section':
+                slide['gradient'] = section_gradient
         
         # Generate unique filename
         job_id = str(uuid.uuid4())[:8]

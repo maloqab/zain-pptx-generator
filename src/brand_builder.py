@@ -70,13 +70,13 @@ class SlideBuilder:
     def __init__(self, brand_config):
         self.brand = brand_config
     
-    def add_title_slide(self, prs, title, subtitle=""):
+    def add_title_slide(self, prs, title, subtitle="", gradient="ultraviolet"):
         """Create title slide with gradient background"""
         slide_layout = prs.slide_layouts[6]  # Blank layout
         slide = prs.slides.add_slide(slide_layout)
         
         # Add gradient background image
-        gradient_path = self.brand.get_gradient_path("ultraviolet")
+        gradient_path = self.brand.get_gradient_path(gradient)
         if gradient_path and gradient_path.exists():
             slide.shapes.add_picture(
                 str(gradient_path), Inches(0), Inches(0),
@@ -180,13 +180,13 @@ class SlideBuilder:
         
         return slide
     
-    def add_section_slide(self, prs, title):
+    def add_section_slide(self, prs, title, gradient="coraldawn"):
         """Create section divider slide"""
         slide_layout = prs.slide_layouts[6]
         slide = prs.slides.add_slide(slide_layout)
         
-        # Add gradient background image (coral dawn)
-        gradient_path = self.brand.get_gradient_path("coraldawn")
+        # Add gradient background image
+        gradient_path = self.brand.get_gradient_path(gradient)
         if gradient_path and gradient_path.exists():
             slide.shapes.add_picture(
                 str(gradient_path), Inches(0), Inches(0),
@@ -249,10 +249,12 @@ class PPTXAssembler:
             
             if slide_type == 'title':
                 subtitle = slide_data.get('subtitle', '')
-                self.builder.add_title_slide(prs, title, subtitle)
+                gradient = slide_data.get('gradient', 'ultraviolet')
+                self.builder.add_title_slide(prs, title, subtitle, gradient)
             
             elif slide_type == 'section':
-                self.builder.add_section_slide(prs, title)
+                gradient = slide_data.get('gradient', 'coraldawn')
+                self.builder.add_section_slide(prs, title, gradient)
             
             elif slide_type == 'content':
                 if isinstance(content, str):

@@ -84,7 +84,7 @@
         
         textarea {
             width: 100%;
-            min-height: 300px;
+            min-height: 250px;
             padding: 16px;
             border: 2px solid #E0E0E0;
             border-radius: 12px;
@@ -127,6 +127,53 @@
             color: var(--zain-purple);
         }
         
+        .gradient-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 12px;
+            margin-top: 8px;
+        }
+        
+        .gradient-option {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .gradient-option input {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .gradient-preview {
+            height: 60px;
+            border-radius: 8px;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gradient-option input:checked + .gradient-preview {
+            border-color: var(--zain-purple);
+            box-shadow: 0 4px 12px rgba(110, 44, 145, 0.3);
+        }
+        
+        .gradient-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gradient-name {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--zain-gray);
+            margin-top: 4px;
+            text-transform: none;
+            letter-spacing: 0;
+            font-weight: 500;
+        }
+        
         .btn {
             display: inline-block;
             padding: 16px 32px;
@@ -138,6 +185,7 @@
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            text-decoration: none;
         }
         
         .btn-primary {
@@ -154,7 +202,6 @@
             background: transparent;
             color: var(--zain-purple);
             border: 2px solid var(--zain-purple);
-            margin-left: 12px;
         }
         
         .btn-secondary:hover {
@@ -162,10 +209,23 @@
             color: var(--white);
         }
         
+        .btn-outline {
+            background: transparent;
+            color: var(--zain-gray);
+            border: 2px solid #CCCCCC;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--zain-purple);
+            color: var(--zain-purple);
+        }
+        
         .actions {
             display: flex;
             justify-content: center;
+            gap: 12px;
             margin-top: 32px;
+            flex-wrap: wrap;
         }
         
         .help-text {
@@ -270,9 +330,8 @@
                 flex-direction: column;
             }
             
-            .btn-secondary {
-                margin-left: 0;
-                margin-top: 12px;
+            .gradient-selector {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -307,6 +366,58 @@
                     </div>
                 </div>
                 
+                <div class="form-group">
+                    <label>Title Slide Gradient</label>
+                    <div class="gradient-selector">
+                        <label class="gradient-option">
+                            <input type="radio" name="title_gradient" value="ultraviolet" checked>
+                            <div class="gradient-preview" style="background: linear-gradient(135deg, #6E2C91 0%, #9B59B6 100%);"></div>
+                            <div class="gradient-name">Ultraviolet</div>
+                        </label>
+                        <label class="gradient-option">
+                            <input type="radio" name="title_gradient" value="coraldawn">
+                            <div class="gradient-preview" style="background: linear-gradient(135deg, #E6007E 0%, #F5A623 100%);"></div>
+                            <div class="gradient-name">Coral Dawn</div>
+                        </label>
+                        <label class="gradient-option">
+                            <input type="radio" name="title_gradient" value="limelagoon">
+                            <div class="gradient-preview" style="background: linear-gradient(135deg, #00A9CE 0%, #7ED321 100%);"></div>
+                            <div class="gradient-name">Lime Lagoon</div>
+                        </label>
+                        <label class="gradient-option">
+                            <input type="radio" name="title_gradient" value="midnightsky">
+                            <div class="gradient-preview" style="background: linear-gradient(135deg, #1A1A1A 0%, #4A4A4A 100%);"></div>
+                            <div class="gradient-name">Midnight</div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Section Slide Gradient</label>
+                    <div class="gradient-selector">
+                        <label class="gradient-option">
+                            <input type="radio" name="section_gradient" value="coraldawn" checked>
+                            <div class="gradient-preview" style="background: linear-gradient(135deg, #E6007E 0%, #F5A623 100%);"></div>
+                            <div class="gradient-name">Coral Dawn</div>
+                        </label>
+                        <label class="gradient-option">
+                            <input type="radio" name="section_gradient" value="ultraviolet">
+                            <div class="gradient-preview" style="background: linear-gradient(135deg, #6E2C91 0%, #9B59B6 100%);"></div>
+                            <div class="gradient-name">Ultraviolet</div>
+                        </label>
+                        <label class="gradient-option">
+                            <input type="radio" name="section_gradient" value="azurewaters">
+                            <div class="gradient-preview" style="background: linear-gradient(135deg, #00A9CE 0%, #4A90E2 100%);"></div>
+                            <div class="gradient-name">Azure Waters</div>
+                        </label>
+                        <label class="gradient-option">
+                            <input type="radio" name="section_gradient" value="magentafade">
+                            <div class="gradient-preview" style="background: linear-gradient(135deg, #E6007E 0%, #BD10E0 100%);"></div>
+                            <div class="gradient-name">Magenta</div>
+                        </label>
+                    </div>
+                </div>
+                
                 <div class="actions">
                     <button type="submit" class="btn btn-primary">Generate Presentation</button>
                     <button type="button" class="btn btn-secondary" onclick="loadExample()">Load Example</button>
@@ -324,10 +435,13 @@
                 <div class="success-icon">✓</div>
                 <h2>Presentation Ready!</h2>
                 <p id="slideCount"></p>
-                <a id="downloadLink" href="#" class="btn btn-primary" download>Download PPTX</a>
+                <div class="actions" style="margin-top: 32px;">
+                    <a id="downloadLink" href="#" class="btn btn-primary" download>Download PPTX</a>
+                    <button type="button" class="btn btn-secondary" onclick="createNew()">Create New</button>
+                </div>
             </div>
             
-            <div class="help-text">
+            <div class="help-text" id="helpText">
                 <h3>💡 Outline Format</h3>
                 <p>Use Markdown-style formatting:</p>
                 <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
@@ -349,6 +463,7 @@
         const loading = document.getElementById('loading');
         const result = document.getElementById('result');
         const error = document.getElementById('error');
+        const helpText = document.getElementById('helpText');
         const fileInput = document.getElementById('outline_file');
         const fileLabel = document.querySelector('.file-input-label');
         
@@ -370,6 +485,21 @@
             }
         }
         
+        // Create new presentation (reset form)
+        function createNew() {
+            // Reset form
+            form.reset();
+            fileLabel.textContent = '📄 Drop file here or click to upload (.txt, .md)';
+            
+            // Hide result, show form
+            result.classList.remove('active');
+            form.style.display = 'block';
+            helpText.style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
         function showError(message) {
             error.textContent = message;
             error.classList.add('active');
@@ -387,6 +517,7 @@
             
             // Show loading
             form.style.display = 'none';
+            helpText.style.display = 'none';
             result.classList.remove('active');
             loading.classList.add('active');
             
@@ -408,10 +539,12 @@
                 } else {
                     showError(data.error || 'Generation failed');
                     form.style.display = 'block';
+                    helpText.style.display = 'block';
                 }
             } catch (err) {
                 loading.classList.remove('active');
                 form.style.display = 'block';
+                helpText.style.display = 'block';
                 showError('Network error: ' + err.message);
             }
         });
