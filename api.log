@@ -1,0 +1,17 @@
+ * Serving Flask app 'agent_api'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.9.190:5001
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 872-454-970
+127.0.0.1 - - [30/Jan/2026 23:38:13] "GET /api/tools HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jan/2026 23:38:32] "OPTIONS /api/chat/new HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jan/2026 23:38:32] "POST /api/chat/new HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jan/2026 23:38:32] "POST /api/chat/new HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jan/2026 23:38:45] "OPTIONS /api/chat/new HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jan/2026 23:38:45] "POST /api/chat/new HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jan/2026 23:38:45] "POST /api/chat/new HTTP/1.1" 200 -
