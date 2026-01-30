@@ -4,15 +4,17 @@ import uuid
 from pathlib import Path
 import sys
 
-# Add scripts to path
-sys.path.insert(0, str(Path(__file__).parent / "scripts"))
+# Add scripts to path (scripts is in parent directory)
+parent_dir = Path(__file__).parent.parent
+sys.path.insert(0, str(parent_dir / "src"))
 
-from src.brand_builder import BrandConfig, PPTXAssembler
-from src.outline_parser import OutlineParser
+from brand_builder import BrandConfig, PPTXAssembler
+from outline_parser import OutlineParser
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['OUTPUT_FOLDER'] = 'generated'
+app_root = Path(__file__).parent.parent
+app.config['UPLOAD_FOLDER'] = app_root / 'uploads'
+app.config['OUTPUT_FOLDER'] = app_root / 'generated'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
 # Ensure folders exist
@@ -53,7 +55,7 @@ def generate():
         output_path = Path(app.config['OUTPUT_FOLDER']) / output_filename
         
         # Load brand config and generate
-        config_path = Path(__file__).parent / "scripts" / "config.json"
+        config_path = parent_dir / "config.json"
         brand = BrandConfig(config_path)
         assembler = PPTXAssembler(brand)
         assembler.create_presentation(slides_data, output_path)
