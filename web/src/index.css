@@ -1,5 +1,40 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Zain';
+  src: url('/fonts/Zain-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Zain';
+  src: url('/fonts/Zain-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Zain';
+  src: url('/fonts/Zain-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Zain';
+  src: url('/fonts/Zain-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Zain';
+  src: url('/fonts/Zain-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
 :root {
   --background: 222.2 84% 4.9%;
   --foreground: 210 40% 98%;
@@ -26,5 +61,5 @@
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
-  font-family: Inter, system-ui, sans-serif;
+  font-family: 'Zain', system-ui, sans-serif;
 }
