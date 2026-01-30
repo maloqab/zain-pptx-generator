@@ -6,3 +6,8 @@
  * Running on http://192.168.9.190:8080
 [33mPress CTRL+C to quit[0m
 127.0.0.1 - - [30/Jan/2026 20:35:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jan/2026 20:44:20] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jan/2026 20:44:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+127.0.0.1 - - [30/Jan/2026 20:49:27] "GET /api/example-outline HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jan/2026 20:49:34] "POST /generate HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jan/2026 20:49:36] "GET /download/zain_presentation_54dd37d1.pptx HTTP/1.1" 200 -

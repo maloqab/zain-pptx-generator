@@ -45,6 +45,23 @@ class BrandConfig:
     def get_slide_layout(self, layout_type):
         """Get layout configuration"""
         return self.config["slide_layouts"].get(layout_type, {})
+    
+    def get_gradient_path(self, gradient_name):
+        """Get path to gradient background image"""
+        gradient_map = {
+            "ultraviolet": "brand-assets/gradients/ZN_GRD_16x9_ULTRAVIOLET.png",
+            "limelagoon": "brand-assets/gradients/ZN_GRD_16x9_LIMELAGOON.png",
+            "midnightsky": "brand-assets/gradients/ZN_GRD_16x9_MIDNIGHTSKY.png",
+            "coraldawn": "brand-assets/gradients/ZN_GRD_16x9_CORALDAWN.png",
+            "twilightmist": "brand-assets/gradients/ZN_GRD_16x9_TWILIGHTMIST.png",
+            "azurewaters": "brand-assets/gradients/ZN_GRD_16x9_AZUREWATERS.png",
+            "magentafade": "brand-assets/gradients/ZN_GRD_16x9_MAGENTAFADE.png",
+            "jadehorizon": "brand-assets/gradients/ZN_GRD_16x9_JADEHORIZON.png"
+        }
+        gradient_rel = gradient_map.get(gradient_name)
+        if gradient_rel:
+            return self.base_path / gradient_rel
+        return None
 
 
 class SlideBuilder:
@@ -58,14 +75,22 @@ class SlideBuilder:
         slide_layout = prs.slide_layouts[6]  # Blank layout
         slide = prs.slides.add_slide(slide_layout)
         
-        # Add gradient background (placeholder - solid color for now)
-        background = slide.shapes.add_shape(
-            MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), 
-            Inches(13.333), Inches(7.5)
-        )
-        background.fill.solid()
-        background.fill.fore_color.rgb = RGBColor(0x6E, 0x2C, 0x91)  # Primary purple
-        background.line.fill.background()
+        # Add gradient background image
+        gradient_path = self.brand.get_gradient_path("ultraviolet")
+        if gradient_path and gradient_path.exists():
+            slide.shapes.add_picture(
+                str(gradient_path), Inches(0), Inches(0),
+                width=Inches(13.333), height=Inches(7.5)
+            )
+        else:
+            # Fallback to solid color
+            background = slide.shapes.add_shape(
+                MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), 
+                Inches(13.333), Inches(7.5)
+            )
+            background.fill.solid()
+            background.fill.fore_color.rgb = RGBColor(0x6E, 0x2C, 0x91)
+            background.line.fill.background()
         
         # Add logo
         logo_path = self.brand.get_logo_path("english_white")
@@ -160,14 +185,22 @@ class SlideBuilder:
         slide_layout = prs.slide_layouts[6]
         slide = prs.slides.add_slide(slide_layout)
         
-        # Gradient background (coral/pink)
-        background = slide.shapes.add_shape(
-            MSO_SHAPE.RECTANGLE, Inches(0), Inches(0),
-            Inches(13.333), Inches(7.5)
-        )
-        background.fill.solid()
-        background.fill.fore_color.rgb = RGBColor(0xE6, 0x00, 0x7E)  # Secondary pink
-        background.line.fill.background()
+        # Add gradient background image (coral dawn)
+        gradient_path = self.brand.get_gradient_path("coraldawn")
+        if gradient_path and gradient_path.exists():
+            slide.shapes.add_picture(
+                str(gradient_path), Inches(0), Inches(0),
+                width=Inches(13.333), height=Inches(7.5)
+            )
+        else:
+            # Fallback to solid color
+            background = slide.shapes.add_shape(
+                MSO_SHAPE.RECTANGLE, Inches(0), Inches(0),
+                Inches(13.333), Inches(7.5)
+            )
+            background.fill.solid()
+            background.fill.fore_color.rgb = RGBColor(0xE6, 0x00, 0x7E)
+            background.line.fill.background()
         
         # Add white logo
         logo_path = self.brand.get_logo_path("english_white")
