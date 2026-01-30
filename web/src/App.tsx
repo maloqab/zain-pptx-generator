@@ -53,7 +53,7 @@ function App() {
       } else {
         setError(data.error || 'Generation failed')
       }
-    } catch (err) {
+    } catch {
       setError('Network error. Please try again.')
     } finally {
       setIsGenerating(false)
