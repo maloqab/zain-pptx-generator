@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zain PPTX Generator</title>
+    <title>Zain AI PPTX Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -17,11 +17,7 @@
             --white: #FFFFFF;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -68,9 +64,25 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
         
-        .form-group {
-            margin-bottom: 24px;
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, var(--zain-purple) 0%, var(--zain-pink) 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
+        
+        .ai-badge::before {
+            content: "✦";
+            font-size: 1rem;
+        }
+        
+        .form-group { margin-bottom: 24px; }
         
         label {
             display: block;
@@ -149,19 +161,11 @@
             border-radius: 8px;
             border: 3px solid transparent;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
         }
         
         .gradient-option input:checked + .gradient-preview {
             border-color: var(--zain-purple);
             box-shadow: 0 4px 12px rgba(110, 44, 145, 0.3);
-        }
-        
-        .gradient-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
         
         .gradient-name {
@@ -209,17 +213,6 @@
             color: var(--white);
         }
         
-        .btn-outline {
-            background: transparent;
-            color: var(--zain-gray);
-            border: 2px solid #CCCCCC;
-        }
-        
-        .btn-outline:hover {
-            border-color: var(--zain-purple);
-            color: var(--zain-purple);
-        }
-        
         .actions {
             display: flex;
             justify-content: center;
@@ -228,50 +221,98 @@
             flex-wrap: wrap;
         }
         
-        .help-text {
-            margin-top: 24px;
-            padding: 20px;
-            background: var(--zain-light);
-            border-radius: 12px;
-            font-size: 0.9rem;
-        }
-        
-        .help-text h3 {
-            color: var(--zain-purple);
-            margin-bottom: 12px;
-            font-size: 1rem;
-        }
-        
-        .help-text code {
-            background: var(--white);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-            color: var(--zain-pink);
-        }
-        
-        .loading {
+        /* AI Processing Styles */
+        .ai-processing {
             display: none;
             text-align: center;
             padding: 40px;
         }
         
-        .loading.active {
+        .ai-processing.active {
             display: block;
         }
         
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid var(--zain-light);
-            border-top-color: var(--zain-purple);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+        .ai-brain {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            position: relative;
         }
         
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .ai-brain svg {
+            width: 100%;
+            height: 100%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .thinking-steps {
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .thinking-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            opacity: 0.4;
+        }
+        
+        .thinking-step.active {
+            background: var(--zain-light);
+            opacity: 1;
+        }
+        
+        .thinking-step.completed {
+            opacity: 0.6;
+        }
+        
+        .thinking-step.completed .step-icon {
+            background: #00C9A7;
+        }
+        
+        .step-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--zain-purple);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .step-text {
+            font-size: 0.95rem;
+            color: var(--zain-dark);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--zain-light);
+            border-radius: 3px;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--zain-purple) 0%, var(--zain-pink) 100%);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+            width: 0%;
         }
         
         .result {
@@ -297,6 +338,21 @@
             color: white;
         }
         
+        .slide-preview {
+            background: var(--zain-light);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .slide-preview h4 {
+            color: var(--zain-purple);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
         .error {
             display: none;
             background: #FFEBEE;
@@ -306,9 +362,7 @@
             margin-top: 20px;
         }
         
-        .error.active {
-            display: block;
-        }
+        .error.active { display: block; }
         
         footer {
             text-align: center;
@@ -318,21 +372,9 @@
         }
         
         @media (max-width: 600px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .card {
-                padding: 24px;
-            }
-            
-            .actions {
-                flex-direction: column;
-            }
-            
-            .gradient-selector {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            h1 { font-size: 1.8rem; }
+            .card { padding: 24px; }
+            .gradient-selector { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -342,12 +384,14 @@
             <svg class="logo" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <text x="0" y="30" font-family="Arial" font-size="28" font-weight="bold" fill="white">Zain</text>
             </svg>
-            <h1>PPTX Generator</h1>
-            <p class="subtitle">Create professional presentations with authentic Zain branding</p>
+            <h1>AI PPTX Generator</h1>
+            <p class="subtitle">Intelligent presentations powered by AI reasoning</p>
         </header>
         
         <div class="card">
             <form id="generateForm">
+                <div class="ai-badge">AI-Powered</div>
+                
                 <div class="form-group">
                     <label for="outline">Presentation Outline</label>
                     <textarea 
@@ -367,114 +411,132 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Title Slide Gradient</label>
+                    <label>Title Slide Style</label>
                     <div class="gradient-selector">
                         <label class="gradient-option">
                             <input type="radio" name="title_gradient" value="ultraviolet" checked>
                             <div class="gradient-preview" style="background: linear-gradient(135deg, #6E2C91 0%, #9B59B6 100%);"></div>
-                            <div class="gradient-name">Ultraviolet</div>
+                            <div class="gradient-name">Professional</div>
                         </label>
                         <label class="gradient-option">
                             <input type="radio" name="title_gradient" value="coraldawn">
                             <div class="gradient-preview" style="background: linear-gradient(135deg, #E6007E 0%, #F5A623 100%);"></div>
-                            <div class="gradient-name">Coral Dawn</div>
+                            <div class="gradient-name">Energetic</div>
                         </label>
                         <label class="gradient-option">
                             <input type="radio" name="title_gradient" value="limelagoon">
                             <div class="gradient-preview" style="background: linear-gradient(135deg, #00A9CE 0%, #7ED321 100%);"></div>
-                            <div class="gradient-name">Lime Lagoon</div>
+                            <div class="gradient-name">Innovative</div>
                         </label>
                         <label class="gradient-option">
                             <input type="radio" name="title_gradient" value="midnightsky">
                             <div class="gradient-preview" style="background: linear-gradient(135deg, #1A1A1A 0%, #4A4A4A 100%);"></div>
-                            <div class="gradient-name">Midnight</div>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Section Slide Gradient</label>
-                    <div class="gradient-selector">
-                        <label class="gradient-option">
-                            <input type="radio" name="section_gradient" value="coraldawn" checked>
-                            <div class="gradient-preview" style="background: linear-gradient(135deg, #E6007E 0%, #F5A623 100%);"></div>
-                            <div class="gradient-name">Coral Dawn</div>
-                        </label>
-                        <label class="gradient-option">
-                            <input type="radio" name="section_gradient" value="ultraviolet">
-                            <div class="gradient-preview" style="background: linear-gradient(135deg, #6E2C91 0%, #9B59B6 100%);"></div>
-                            <div class="gradient-name">Ultraviolet</div>
-                        </label>
-                        <label class="gradient-option">
-                            <input type="radio" name="section_gradient" value="azurewaters">
-                            <div class="gradient-preview" style="background: linear-gradient(135deg, #00A9CE 0%, #4A90E2 100%);"></div>
-                            <div class="gradient-name">Azure Waters</div>
-                        </label>
-                        <label class="gradient-option">
-                            <input type="radio" name="section_gradient" value="magentafade">
-                            <div class="gradient-preview" style="background: linear-gradient(135deg, #E6007E 0%, #BD10E0 100%);"></div>
-                            <div class="gradient-name">Magenta</div>
+                            <div class="gradient-name">Premium</div>
                         </label>
                     </div>
                 </div>
                 
                 <div class="actions">
-                    <button type="submit" class="btn btn-primary">Generate Presentation</button>
-                    <button type="button" class="btn btn-secondary" onclick="loadExample()">Load Example</button>
+                    <button type="submit" class="btn btn-primary">Generate with AI ✦</button>
+                    <button type="button" class="btn btn-secondary" onclick="loadExample()">Try Example</button>
                 </div>
                 
                 <div class="error" id="error"></div>
             </form>
             
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p>Generating your presentation...</p>
+            <div class="ai-processing" id="aiProcessing">
+                <div class="ai-brain">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="url(#brainGradient)"/>
+                        <path d="M30 50 Q40 30 50 50 T70 50" stroke="white" stroke-width="3" fill="none" opacity="0.8"/>
+                        <path d="M35 60 Q45 40 55 60 T65 60" stroke="white" stroke-width="2" fill="none" opacity="0.6"/>
+                        <circle cx="35" cy="45" r="4" fill="white" opacity="0.9"/>
+                        <circle cx="65" cy="45" r="4" fill="white" opacity="0.9"/>
+                        <defs>
+                            <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6E2C91"/>
+                                <stop offset="100%" style="stop-color:#E6007E"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h3 style="margin-bottom: 8px; color: var(--zain-purple);">AI is thinking...</h3>
+                <p style="color: var(--zain-gray); margin-bottom: 30px;">Analyzing your content and designing the optimal presentation</p>
+                
+                <div class="thinking-steps">
+                    <div class="thinking-step" id="step1">
+                        <div class="step-icon">1</div>
+                        <div class="step-text">Understanding content and audience</div>
+                    </div>
+                    <div class="thinking-step" id="step2">
+                        <div class="step-icon">2</div>
+                        <div class="step-text">Structuring narrative flow</div>
+                    </div>
+                    <div class="thinking-step" id="step3">
+                        <div class="step-icon">3</div>
+                        <div class="step-text">Choosing optimal layouts</div>
+                    </div>
+                    <div class="thinking-step" id="step4">
+                        <div class="step-icon">4</div>
+                        <div class="step-text">Enhancing and rewriting content</div>
+                    </div>
+                    <div class="thinking-step" id="step5">
+                        <div class="step-icon">5</div>
+                        <div class="step-text">Rendering final presentation</div>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
             </div>
             
             <div class="result" id="result">
                 <div class="success-icon">✓</div>
-                <h2>Presentation Ready!</h2>
-                <p id="slideCount"></p>
-                <div class="actions" style="margin-top: 32px;">
-                    <a id="downloadLink" href="#" class="btn btn-primary" download>Download PPTX</a>
-                    <button type="button" class="btn btn-secondary" onclick="createNew()">Create New</button>
+                <h2>Your Presentation is Ready!</h2>
+                <p id="slideCount" style="color: var(--zain-gray); margin: 10px 0;"></p>
+                
+                <div class="slide-preview" id="slidePreview">
+                    <h4>📊 AI Design Decisions</h4>
+                    <ul id="designDecisions" style="margin-left: 20px; line-height: 1.8; color: var(--zain-gray);">
+                    </ul>
                 </div>
-            </div>
-            
-            <div class="help-text" id="helpText">
-                <h3>💡 Outline Format</h3>
-                <p>Use Markdown-style formatting:</p>
-                <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
-                    <li><code># Title</code> for presentation title</li>
-                    <li><code>## Section</code> for section dividers</li>
-                    <li><code>- bullet</code> for bullet points</li>
-                    <li>Separate slides with <code>---</code></li>
-                </ul>
+                
+                <div class="actions" style="margin-top: 30px;">
+                    <a id="downloadLink" href="#" class="btn btn-primary" download>Download PPTX</a>
+                    <button type="button" class="btn btn-secondary" onclick="createNew()">Create Another</button>
+                </div>
             </div>
         </div>
         
         <footer>
-            <p>Zain Brand Compliant • Official Fonts • Professional Templates</p>
+            <p>Zain Brand Compliant • AI-Powered Design • Professional Templates</p>
         </footer>
     </div>
     
     <script>
         const form = document.getElementById('generateForm');
-        const loading = document.getElementById('loading');
+        const aiProcessing = document.getElementById('aiProcessing');
         const result = document.getElementById('result');
         const error = document.getElementById('error');
-        const helpText = document.getElementById('helpText');
         const fileInput = document.getElementById('outline_file');
         const fileLabel = document.querySelector('.file-input-label');
+        const progressFill = document.getElementById('progressFill');
         
-        // Update file label when file selected
+        const steps = [
+            document.getElementById('step1'),
+            document.getElementById('step2'),
+            document.getElementById('step3'),
+            document.getElementById('step4'),
+            document.getElementById('step5')
+        ];
+        
         fileInput.addEventListener('change', function() {
             if (this.files && this.files[0]) {
                 fileLabel.textContent = '📄 ' + this.files[0].name;
             }
         });
         
-        // Load example outline
         async function loadExample() {
             try {
                 const response = await fetch('/api/example-outline');
@@ -485,18 +547,11 @@
             }
         }
         
-        // Create new presentation (reset form)
         function createNew() {
-            // Reset form
             form.reset();
             fileLabel.textContent = '📄 Drop file here or click to upload (.txt, .md)';
-            
-            // Hide result, show form
             result.classList.remove('active');
             form.style.display = 'block';
-            helpText.style.display = 'block';
-            
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
@@ -509,17 +564,73 @@
             error.classList.remove('active');
         }
         
+        function updateStep(stepIndex, status) {
+            steps.forEach((step, i) => {
+                step.classList.remove('active', 'completed');
+                if (i < stepIndex) {
+                    step.classList.add('completed');
+                    step.querySelector('.step-icon').textContent = '✓';
+                } else if (i === stepIndex) {
+                    step.classList.add('active');
+                    step.querySelector('.step-icon').textContent = i + 1;
+                } else {
+                    step.querySelector('.step-icon').textContent = i + 1;
+                }
+            });
+        }
+        
+        function simulateAIThinking() {
+            return new Promise(resolve => {
+                let progress = 0;
+                let currentStep = 0;
+                
+                const interval = setInterval(() => {
+                    progress += 2;
+                    progressFill.style.width = progress + '%';
+                    
+                    // Update steps based on progress
+                    if (progress > 10 && currentStep === 0) {
+                        currentStep = 0;
+                        updateStep(0, 'active');
+                    }
+                    if (progress > 25 && currentStep === 0) {
+                        currentStep = 1;
+                        updateStep(1, 'active');
+                    }
+                    if (progress > 45 && currentStep === 1) {
+                        currentStep = 2;
+                        updateStep(2, 'active');
+                    }
+                    if (progress > 65 && currentStep === 2) {
+                        currentStep = 3;
+                        updateStep(3, 'active');
+                    }
+                    if (progress > 80 && currentStep === 3) {
+                        currentStep = 4;
+                        updateStep(4, 'active');
+                    }
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        resolve();
+                    }
+                }, 100);
+            });
+        }
+        
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             hideError();
             
             const formData = new FormData(form);
             
-            // Show loading
+            // Show AI processing
             form.style.display = 'none';
-            helpText.style.display = 'none';
             result.classList.remove('active');
-            loading.classList.add('active');
+            aiProcessing.classList.add('active');
+            
+            // Start AI thinking animation
+            const thinkingPromise = simulateAIThinking();
             
             try {
                 const response = await fetch('/generate', {
@@ -529,22 +640,36 @@
                 
                 const data = await response.json();
                 
-                loading.classList.remove('active');
+                // Wait for animation to complete
+                await thinkingPromise;
+                
+                aiProcessing.classList.remove('active');
                 
                 if (data.success) {
                     document.getElementById('slideCount').textContent = 
-                        `${data.slide_count} slides generated`;
+                        `${data.slide_count} intelligently designed slides`;
                     document.getElementById('downloadLink').href = data.download_url;
+                    
+                    // Show AI design decisions
+                    const decisions = [
+                        'Analyzed content structure and audience intent',
+                        'Selected optimal layouts for content type',
+                        'Applied Zain brand guidelines consistently',
+                        'Balanced information density across slides'
+                    ];
+                    
+                    const decisionsList = document.getElementById('designDecisions');
+                    decisionsList.innerHTML = decisions.map(d => `<li>${d}</li>`).join('');
+                    
                     result.classList.add('active');
                 } else {
                     showError(data.error || 'Generation failed');
                     form.style.display = 'block';
-                    helpText.style.display = 'block';
                 }
             } catch (err) {
-                loading.classList.remove('active');
+                await thinkingPromise;
+                aiProcessing.classList.remove('active');
                 form.style.display = 'block';
-                helpText.style.display = 'block';
                 showError('Network error: ' + err.message);
             }
         });
