@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zain PPTX Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --zain-purple: #6E2C91;
+            --zain-purple-light: #9B59B6;
+            --zain-pink: #E6007E;
+            --zain-cyan: #00A9CE;
+            --zain-dark: #1A1A1A;
+            --zain-gray: #4A4A4A;
+            --zain-light: #F5F5F5;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--zain-purple) 0%, var(--zain-purple-light) 100%);
+            min-height: 100vh;
+            color: var(--zain-dark);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+        }
+        
+        h1 {
+            color: var(--white);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--zain-dark);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 16px;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Inter', monospace;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--zain-purple);
+        }
+        
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+        
+        .file-input-label {
+            display: block;
+            padding: 16px;
+            border: 2px dashed #CCCCCC;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--zain-gray);
+        }
+        
+        .file-input-label:hover {
+            border-color: var(--zain-purple);
+            color: var(--zain-purple);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--zain-purple) 0%, var(--zain-pink) 100%);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(110, 44, 145, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--zain-purple);
+            border: 2px solid var(--zain-purple);
+            margin-left: 12px;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--zain-purple);
+            color: var(--white);
+        }
+        
+        .actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 32px;
+        }
+        
+        .help-text {
+            margin-top: 24px;
+            padding: 20px;
+            background: var(--zain-light);
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+        
+        .help-text h3 {
+            color: var(--zain-purple);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        
+        .help-text code {
+            background: var(--white);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--zain-pink);
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--zain-light);
+            border-top-color: var(--zain-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .result {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .result.active {
+            display: block;
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #00C9A7 0%, #00A9CE 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+            color: white;
+        }
+        
+        .error {
+            display: none;
+            background: #FFEBEE;
+            color: #C62828;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .error.active {
+            display: block;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card {
+                padding: 24px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <svg class="logo" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <text x="0" y="30" font-family="Arial" font-size="28" font-weight="bold" fill="white">Zain</text>
+            </svg>
+            <h1>PPTX Generator</h1>
+            <p class="subtitle">Create professional presentations with authentic Zain branding</p>
+        </header>
+        
+        <div class="card">
+            <form id="generateForm">
+                <div class="form-group">
+                    <label for="outline">Presentation Outline</label>
+                    <textarea 
+                        id="outline" 
+                        name="outline" 
+                        placeholder="# Presentation Title&#10;Subtitle goes here&#10;&#10;## Section Title&#10;&#10;- Bullet point one&#10;- Bullet point two&#10;- Bullet point three"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Or Upload Outline File</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="outline_file" name="outline_file" accept=".txt,.md">
+                        <label for="outline_file" class="file-input-label">
+                            📄 Drop file here or click to upload (.txt, .md)
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button type="submit" class="btn btn-primary">Generate Presentation</button>
+                    <button type="button" class="btn btn-secondary" onclick="loadExample()">Load Example</button>
+                </div>
+                
+                <div class="error" id="error"></div>
+            </form>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Generating your presentation...</p>
+            </div>
+            
+            <div class="result" id="result">
+                <div class="success-icon">✓</div>
+                <h2>Presentation Ready!</h2>
+                <p id="slideCount"></p>
+                <a id="downloadLink" href="#" class="btn btn-primary" download>Download PPTX</a>
+            </div>
+            
+            <div class="help-text">
+                <h3>💡 Outline Format</h3>
+                <p>Use Markdown-style formatting:</p>
+                <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
+                    <li><code># Title</code> for presentation title</li>
+                    <li><code>## Section</code> for section dividers</li>
+                    <li><code>- bullet</code> for bullet points</li>
+                    <li>Separate slides with <code>---</code></li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Zain Brand Compliant • Official Fonts • Professional Templates</p>
+        </footer>
+    </div>
+    
+    <script>
+        const form = document.getElementById('generateForm');
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+        const error = document.getElementById('error');
+        const fileInput = document.getElementById('outline_file');
+        const fileLabel = document.querySelector('.file-input-label');
+        
+        // Update file label when file selected
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                fileLabel.textContent = '📄 ' + this.files[0].name;
+            }
+        });
+        
+        // Load example outline
+        async function loadExample() {
+            try {
+                const response = await fetch('/api/example-outline');
+                const data = await response.json();
+                document.getElementById('outline').value = data.outline;
+            } catch (err) {
+                showError('Could not load example');
+            }
+        }
+        
+        function showError(message) {
+            error.textContent = message;
+            error.classList.add('active');
+        }
+        
+        function hideError() {
+            error.classList.remove('active');
+        }
+        
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            hideError();
+            
+            const formData = new FormData(form);
+            
+            // Show loading
+            form.style.display = 'none';
+            result.classList.remove('active');
+            loading.classList.add('active');
+            
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                loading.classList.remove('active');
+                
+                if (data.success) {
+                    document.getElementById('slideCount').textContent = 
+                        `${data.slide_count} slides generated`;
+                    document.getElementById('downloadLink').href = data.download_url;
+                    result.classList.add('active');
+                } else {
+                    showError(data.error || 'Generation failed');
+                    form.style.display = 'block';
+                }
+            } catch (err) {
+                loading.classList.remove('active');
+                form.style.display = 'block';
+                showError('Network error: ' + err.message);
+            }
+        });
+    </script>
+</body>
+</html>
