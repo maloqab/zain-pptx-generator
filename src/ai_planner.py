@@ -139,7 +139,7 @@ Respond ONLY with the JSON object, no other text.
         Simple fallback that parses outline without AI
         Used when agent spawning is not available
         """
-        from outline_parser import OutlineParser
+        from .outline_parser import OutlineParser
         
         parser = OutlineParser()
         basic_slides = parser.parse_text(outline_text)
