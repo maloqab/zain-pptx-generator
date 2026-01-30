@@ -8,10 +8,14 @@ import { Label } from '@/components/ui/label'
 import { Loader2, Download, Sparkles, FileText, RefreshCw } from 'lucide-react'
 
 const gradients = [
-  { value: 'ultraviolet', label: 'Ultraviolet', colors: 'from-[#6E2C91] to-[#9B59B6]' },
-  { value: 'coraldawn', label: 'Coral Dawn', colors: 'from-[#E6007E] to-[#F5A623]' },
-  { value: 'limelagoon', label: 'Lime Lagoon', colors: 'from-[#00A9CE] to-[#7ED321]' },
-  { value: 'midnightsky', label: 'Midnight', colors: 'from-[#1A1A1A] to-[#4A4A4A]' },
+  { value: 'ultraviolet', label: 'Ultraviolet', image: '/gradients/ZN_GRD_16x9_ULTRAVIOLET.png' },
+  { value: 'coraldawn', label: 'Coral Dawn', image: '/gradients/ZN_GRD_16x9_CORALDAWN.png' },
+  { value: 'limelagoon', label: 'Lime Lagoon', image: '/gradients/ZN_GRD_16x9_LIMELAGOON.png' },
+  { value: 'midnightsky', label: 'Midnight', image: '/gradients/ZN_GRD_16x9_MIDNIGHTSKY.png' },
+  { value: 'azurewaters', label: 'Azure Waters', image: '/gradients/ZN_GRD_16x9_AZUREWATERS.png' },
+  { value: 'magentafade', label: 'Magenta', image: '/gradients/ZN_GRD_16x9_MAGENTAFADE.png' },
+  { value: 'twilightmist', label: 'Twilight', image: '/gradients/ZN_GRD_16x9_TWILIGHTMIST.png' },
+  { value: 'jadehorizon', label: 'Jade', image: '/gradients/ZN_GRD_16x9_JADEHORIZON.png' },
 ]
 
 function App() {
@@ -182,7 +186,13 @@ Driving Growth Through Digital Innovation
                         htmlFor={`title-${g.value}`}
                         className="flex flex-col items-center gap-2 cursor-pointer"
                       >
-                        <div className={`w-full h-16 rounded-lg bg-gradient-to-r ${g.colors} ring-2 ring-transparent peer-data-[state=checked]:ring-white transition-all`} />
+                        <div className="w-full h-16 rounded-lg overflow-hidden ring-2 ring-transparent peer-data-[state=checked]:ring-white transition-all">
+                          <img 
+                            src={g.image} 
+                            alt={g.label}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
                         <span className="text-xs text-slate-400">{g.label}</span>
                       </Label>
                     </div>
@@ -211,7 +221,13 @@ Driving Growth Through Digital Innovation
                         htmlFor={`section-${g.value}`}
                         className="flex flex-col items-center gap-2 cursor-pointer"
                       >
-                        <div className={`w-full h-16 rounded-lg bg-gradient-to-r ${g.colors} ring-2 ring-transparent peer-data-[state=checked]:ring-white transition-all`} />
+                        <div className="w-full h-16 rounded-lg overflow-hidden ring-2 ring-transparent peer-data-[state=checked]:ring-white transition-all">
+                          <img 
+                            src={g.image} 
+                            alt={g.label}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
                         <span className="text-xs text-slate-400">{g.label}</span>
                       </Label>
                     </div>
